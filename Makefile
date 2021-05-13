@@ -1,8 +1,8 @@
-all: run valgrind valgrindleak run_new
+all: run valgrind valgrindleak run_new main
 
 run:
 	clear
-	g++ -o main main.cpp
+	g++ -o main main.cpp GraphMatrix.cpp
 	./main
 
 valgrind:
@@ -14,5 +14,3 @@ valgrindleak:
 	clear
 	g++ -g -o main main.cpp -Wall
 	valgrind --leak-check=full ./main
-
-g++

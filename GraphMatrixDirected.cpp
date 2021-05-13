@@ -1,18 +1,18 @@
-#include "GraphMatrix.h"
+#include "GraphMatrixDirected.h"
 #include <limits>
 #include <fstream>
 
 using namespace std;
 
-GraphMatrix::GraphMatrix(){
+GraphMatrixDirected::GraphMatrixDirected(){
 
 }
 
-GraphMatrix::GraphMatrix(int V){
+GraphMatrixDirected::GraphMatrixDirected(int V){
     this->vertices = V;
 }
 
-void GraphMatrix::createTable(){
+void GraphMatrixDirected::createTable(){
     table = new int * [vertices];
     for (int i = 0; i <vertices; ++i){
         table[i] = new int [vertices];
@@ -24,35 +24,34 @@ void GraphMatrix::createTable(){
     }
 }
 
-GraphMatrix::~GraphMatrix(){
+GraphMatrixDirected::~GraphMatrixDirected(){
     for (int i = 0; i<vertices; i++){
        delete [] table [i];
     }
     delete [] table;
 }
 
-void GraphMatrix::setFirstVertice(int x){
+void GraphMatrixDirected::setFirstVertice(int x){
     this->first_vertice =x;
 }
 
-int GraphMatrix::getFirstVertice(){
+int GraphMatrixDirected::getFirstVertice(){
     return first_vertice;
 }
 
-void GraphMatrix::setLastVertice(int x){
+void GraphMatrixDirected::setLastVertice(int x){
     this->last_vertice = x;
 }
 
-int GraphMatrix::getLastVertice(){
+int GraphMatrixDirected::getLastVertice(){
     return last_vertice;
 }
 
-void GraphMatrix::addEdge(int x, int y, int weight){   // dodwanie połaczeń
+void GraphMatrixDirected::addEdge(int x, int y, int weight){   // dodwanie połaczeń
     table[x][y] = weight;
-    table[y][x] = weight;
 }
 
-void GraphMatrix::printGraphMatrix(){
+void GraphMatrixDirected::printGraphMatrix(){
     cout << "  ";
     for (int i = 0; i<vertices; i++){
         cout << i <<"\t";
@@ -71,7 +70,7 @@ void GraphMatrix::printGraphMatrix(){
     }
 }
 
-void GraphMatrix::readFromFile(string filename){
+void GraphMatrixDirected::readFromFile(string filename){
     ifstream file;
 	file.open(filename);
 	int first,last,w;
@@ -126,13 +125,13 @@ void GraphMatrix::readFromFile(string filename){
 }
 
 
-// int main(int argc, char const *argv[])
-// {
-//     cout << "Początek \n"<<endl;
-//     GraphMatrix graph (5);
-//     graph.readFromFile("test");
-//     graph.printGraphMatrix();
+int main(int argc, char const *argv[])
+{
+    cout << "Początek \n"<<endl;
+    GraphMatrixDirected graph (5);
+    graph.readFromFile("test");
+    graph.printGraphMatrix();
 
-//     return 0;
-// }
+    return 0;
+}
 

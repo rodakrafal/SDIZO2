@@ -125,13 +125,13 @@ void GraphMatrixDirected::readFromFile(string filename){
 }
 
 
-int main(int argc, char const *argv[])
-{
-    cout << "Początek \n"<<endl;
-    GraphMatrixDirected graph (5);
-    graph.readFromFile("test");
-    graph.printGraphMatrix();
+// int main(int argc, char const *argv[])
+// {
+//     cout << "Początek \n"<<endl;
+//     GraphMatrixDirected graph (5);
+//     graph.readFromFile("test");
+//     graph.printGraphMatrix();
 
-    return 0;
-}
+//     return 0;
+// }
 

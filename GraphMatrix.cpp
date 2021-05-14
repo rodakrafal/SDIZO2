@@ -1,4 +1,6 @@
 #include "GraphMatrix.h"
+#include <cstdlib>
+#include <ctime>
 #include <limits>
 #include <fstream>
 
@@ -12,13 +14,13 @@ GraphMatrix::GraphMatrix(int V){
     this->vertices = V;
 }
 
-void GraphMatrix::createTable(){
-    table = new int * [vertices];
-    for (int i = 0; i <vertices; ++i){
-        table[i] = new int [vertices];
+void GraphMatrix::createTable(int V){
+    table = new int * [V];
+    for (int i = 0; i <V; ++i){
+        table[i] = new int [V];
     }
-    for (int i = 0; i<vertices; i++){
-        for (int j =0; j<vertices;j++){
+    for (int i = 0; i<V; i++){
+        for (int j =0; j<V;j++){
             table[i][j] = numeric_limits<int>::max();
         }
     }
@@ -87,7 +89,7 @@ void GraphMatrix::readFromFile(string filename){
 			cout << "Podana w pliku ilość wierzchołków jest nieodpowiednia" << endl;
 			return;
 		}
-        createTable();
+        createTable(vertices);
 
         file >> first_vertice;
         	if (first_vertice < 0) {
@@ -125,14 +127,57 @@ void GraphMatrix::readFromFile(string filename){
 		cout << "File error - OPEN" << endl;
 }
 
+void GraphMatrix::generateGraph(float density, int amountOfVertices){
 
-// int main(int argc, char const *argv[])
-// {
-//     cout << "Początek \n"<<endl;
-//     GraphMatrix graph (5);
-//     graph.readFromFile("test");
-//     graph.printGraphMatrix();
+    int amountOfEdges = (density * amountOfVertices * (amountOfVertices-1))/2;
+    bool isCorret = true;
+    int first, second, amount;
+    vertices = amountOfVertices;
 
-//     return 0;
-// }
+    if(amountOfEdges<amountOfVertices-1){
+        amountOfEdges = amountOfVertices-1;
+        isCorret = false;
+    }
+    edges = amountOfEdges;
+    cout << amountOfEdges <<endl; 
+    createTable(vertices);
+    
+    bool ** temp = new bool * [vertices];
+    for (int i = 0; i <vertices; ++i){
+        temp[i] = new bool [vertices];
+    }
+    for (int i = 0; i<vertices; i++){
+        for (int j =0; j<vertices;j++){
+            if(i==j)temp[i][j] = true;
+            else temp[i][j] = false;
+        }
+    }
+
+    srand(time(0));
+    for (int i = 0; i<edges; i++){
+        first = rand()%amountOfVertices;
+        second = rand()%amountOfVertices;
+        while (first == second){
+            second = rand()%amountOfVertices;
+        }
+        if(temp[first][second]==true){
+            cout << "juz to mamy"<<endl;
+        }
+        amount = rand()%10;
+        addEdge(first,second,rand()%10);
+        temp[first][second]=true;
+        temp[second][first]=true;
+    }
+}
+
+
+int main(int argc, char const *argv[])
+{
+    cout << "Początek \n"<<endl;
+    GraphMatrix graph;
+    graph.generateGraph(0.99, 4);
+    graph.printGraphMatrix();
+
+    return 0;
+}
 

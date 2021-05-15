@@ -12,6 +12,7 @@ typedef pair<int, int> pi;
 PrimAlgorithm::PrimAlgorithm(int x, int y){
     this->amountVertices = x;
     this->firstVertice = y;
+
 }
 
 PrimAlgorithm::~PrimAlgorithm(){
@@ -26,9 +27,7 @@ void PrimAlgorithm::initilize(MST MST_Array []) {
     }
 }
 
-
 void PrimAlgorithm::prim(MST MST_Array []) {
-
     
     priority_queue<pi, vector<pi>, greater<pi> > pq;
     pair<int, int> top;
@@ -82,13 +81,11 @@ void PrimAlgorithm::primMatrix(){
     prim(tab);
 }
 
+// int main(int argc, char const *argv[])
+// {
+//     graph.generateGraph(0.7,5);
+//     graph.printGraphMatrix();
+//     PrimAlgorithm primMat (graph.getVertices(), graph.getFirstVertice());
+//     primMat.primMatrix();
 
-
-int main(int argc, char const *argv[])
-{
-    graph.generateGraph(0.7,5);
-    graph.printGraphMatrix();
-    PrimAlgorithm primMat (graph.getVertices(), graph.getFirstVertice());
-    primMat.primMatrix();
-
-}
+// }

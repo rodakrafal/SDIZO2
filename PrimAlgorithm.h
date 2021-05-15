@@ -10,12 +10,6 @@ struct MST {
     int near;
 };
 
-struct Edges{
-    int first;
-    int second;
-    int weight;
-};
-
 class PrimAlgorithm
 {
     private:

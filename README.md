@@ -1,4 +1,4 @@
-### PROJECT FOR SDIZO2
+# PROJECT FOR SDIZO2
 
 ## Table of contents
 * [General info](#general-info)

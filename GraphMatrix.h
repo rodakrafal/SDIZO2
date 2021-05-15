@@ -7,10 +7,11 @@ class GraphMatrix
 
     private:
     int edges, vertices, first_vertice, last_vertice;      // wierzchołki, krawędzie, pierwszy/ostatni wierzchołek
-    int ** table;
-    bool isDirected = false;        // czy graf jest skierowany czy nie, domyślnie nie jest
+    bool isDirected, created;        // czy graf jest skierowany czy nie, domyślnie nie jest
     void shuffle(int [], int n);
+    void destruct();
     public:
+    int ** table;
 
     GraphMatrix();          // konstruktory
     GraphMatrix(bool x);
@@ -18,11 +19,15 @@ class GraphMatrix
 
     void createTable (int x);  // tworzenie tabeli 2D zawierającej (reprezentującej) graf nieskierowany - macierz sąsiedztwa
 
+    int getTableValue(int x, int y);
+
     void setFirstVertice(int x);  // setter oraz getter dla pierwszego wierzchołka
     int getFirstVertice();
 
     void setLastVertice(int x);   // setter oraz getter dla ostatniego wierzchołka
     int getLastVertice();
+
+    int getVertices();
 
     void addEdge(int x, int y, int weight);  // dodwawanie krawędzi między wierzchołkami
     void printGraphMatrix();         // wyświetlenie grafu nieskierowanego - macierz sąsiedztwa 

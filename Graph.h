@@ -2,7 +2,7 @@
 
 using namespace std;
 
-class GraphMatrix
+class Graph
 {
 
     private:
@@ -10,12 +10,12 @@ class GraphMatrix
     bool isDirected, created;        // czy graf jest skierowany czy nie, domyślnie nie jest
     void shuffle(int [], int n);
     void destruct();
-    public:
     int ** table;
+    public:
 
-    GraphMatrix();          // konstruktory
-    GraphMatrix(bool x);
-    ~GraphMatrix();     // destruktory
+    Graph();          // konstruktory
+    Graph(bool x);
+    ~Graph();     // destruktory
 
     void createTable (int x);  // tworzenie tabeli 2D zawierającej (reprezentującej) graf nieskierowany - macierz sąsiedztwa
 
@@ -26,11 +26,14 @@ class GraphMatrix
 
     void setLastVertice(int x);   // setter oraz getter dla ostatniego wierzchołka
     int getLastVertice();
-
+    
     int getVertices();
 
     void addEdge(int x, int y, int weight);  // dodwawanie krawędzi między wierzchołkami
+
     void printGraphMatrix();         // wyświetlenie grafu nieskierowanego - macierz sąsiedztwa 
+    void printGraphList();
+
     void readFromFile(string filename);            // wczytanie grafu z pliku
 
     void generateGraph(float x, int y);       // generowanie grafu 

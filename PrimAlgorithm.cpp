@@ -1,4 +1,5 @@
 #include "PrimAlgorithm.h"
+#include "GraphMatrix.h"
 #include <queue>
 #include <vector>
 #include <limits>

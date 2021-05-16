@@ -1,4 +1,4 @@
-#include "GraphMatrix.h"
+#include "Graph.h"
 #include <cstdlib>
 #include <ctime>
 #include <limits>
@@ -6,26 +6,26 @@
 
 using namespace std;
 
-GraphMatrix::GraphMatrix(){ // konstuktor bez argumentowy
+Graph::Graph(){ // konstuktor bez argumentowy
     this->isDirected = false;
     this->vertices = 0;
     this->created = true;
 }
 
-GraphMatrix::GraphMatrix(bool x){ // konstuktor z argumentem decydującym czy graf jest skierowany czy nie
+Graph::Graph(bool x){ // konstuktor z argumentem decydującym czy graf jest skierowany czy nie
     this->isDirected = x;
     this->vertices = 0;
     this->created = true;
     this->edges = 0;
 }
 
-GraphMatrix::~GraphMatrix(){ // destruktor
+Graph::~Graph(){ // destruktor
     if(vertices>=1){
     destruct();
     }
 }
 
-void GraphMatrix::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej połączenia między wierzchołkami 
+void Graph::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej połączenia między wierzchołkami 
     if(V <= 1){
         cout << "Podano za małą ilość krawędzi do stworzenia tablicy dwuwymiarowej."<<endl;
         return;
@@ -40,38 +40,39 @@ void GraphMatrix::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawier
         }
     }
 }
-int GraphMatrix::getTableValue(int x, int y){
+
+int Graph::getTableValue(int x, int y){ //getter dla tablicy dwuwymiarowej
     return table[x][y];
 }
 
-void GraphMatrix::destruct(){ // "wnętrze" destruktora
+void Graph::destruct(){ // "wnętrze" destruktora
     for (int i = 0; i<vertices; i++){
        delete [] table [i];
     }
     delete [] table;
 }
 
-void GraphMatrix::setFirstVertice(int x){ //ustawianie wartości "pierwszego" wierzchołka
+void Graph::setFirstVertice(int x){ //ustawianie wartości "pierwszego" wierzchołka
     this->first_vertice =x;
 }
 
-int GraphMatrix::getFirstVertice(){ // getter dla "pierwszego" wierzchołka
+int Graph::getFirstVertice(){ // getter dla "pierwszego" wierzchołka
     return first_vertice;
 }
 
-void GraphMatrix::setLastVertice(int x){ //ustawianie wartości "ostatniego" wierzchołka
+void Graph::setLastVertice(int x){ //ustawianie wartości "ostatniego" wierzchołka
     this->last_vertice = x;
 }
 
-int GraphMatrix::getLastVertice(){ // getter dla "ostatniego" wierzchołka
+int Graph::getLastVertice(){ // getter dla "ostatniego" wierzchołka
     return last_vertice;
 }
 
-int GraphMatrix::getVertices(){ // getter dla ilości wierzchołków
+int Graph::getVertices(){ // getter dla ilości wierzchołków
     return vertices;
 }
 
-void GraphMatrix::addEdge(int x, int y, int weight){   // dodawanie połączeń między wierzchołkami
+void Graph::addEdge(int x, int y, int weight){   // dodawanie połączeń między wierzchołkami
     table[x][y] = weight;   // dla grafu skierowanego
     // table[y][x] = weight;
     if(!isDirected){    //dla grafu nieskierowanego
@@ -79,7 +80,7 @@ void GraphMatrix::addEdge(int x, int y, int weight){   // dodawanie połączeń 
     }
 }
 
-void GraphMatrix::printGraphMatrix(){ // funckja wyświetlająca graficzną reprezentacje grafu
+void Graph::printGraphMatrix(){ // funckja wyświetlająca graficzną reprezentacje grafu
     if(vertices <= 1){
         cout<<"Nie odpowiednia ilosć wierzchołków." << endl;
         return;
@@ -103,7 +104,11 @@ void GraphMatrix::printGraphMatrix(){ // funckja wyświetlająca graficzną repr
     }
 }
 
-void GraphMatrix::readFromFile(string filename){ // wczytywanie grafu z pliku
+void Graph::printGraphList(){
+
+}
+
+void Graph::readFromFile(string filename){ // wczytywanie grafu z pliku
     if(vertices >1 && created && edges>0){
         destruct();
     }
@@ -163,7 +168,7 @@ void GraphMatrix::readFromFile(string filename){ // wczytywanie grafu z pliku
 		cout << "File error - OPEN" << endl;
 }
 
-void GraphMatrix::generateGraph(float density, int amountOfVertices){
+void Graph::generateGraph(float density, int amountOfVertices){
 
     if(amountOfVertices >1 && created && edges>0){
         destruct();
@@ -249,7 +254,7 @@ void GraphMatrix::generateGraph(float density, int amountOfVertices){
     delete [] tabEdge;
 }
 
-void GraphMatrix::shuffle (int arr[], int lenght){ // funckja służąca do losowego ustawienia wartości w tablicy
+void Graph::shuffle (int arr[], int lenght){ // funckja służąca do losowego ustawienia wartości w tablicy
     int temp;
     int randomIndex;
     for (int i = 0; i < lenght; i++){

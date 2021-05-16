@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
 class Graph
@@ -10,7 +10,8 @@ class Graph
     bool isDirected, created;        // czy graf jest skierowany czy nie, domyślnie nie jest
     void shuffle(int [], int n);
     void destruct();
-    int ** table;
+    int ** tableMatrix;
+    vector<pair<int,int>> *tableList;
     public:
 
     Graph();          // konstruktory
@@ -20,6 +21,8 @@ class Graph
     void createTable (int x);  // tworzenie tabeli 2D zawierającej (reprezentującej) graf nieskierowany - macierz sąsiedztwa
 
     int getTableValue(int x, int y);
+    int getListValue(int x, int y);
+
 
     void setFirstVertice(int x);  // setter oraz getter dla pierwszego wierzchołka
     int getFirstVertice();
@@ -27,12 +30,14 @@ class Graph
     void setLastVertice(int x);   // setter oraz getter dla ostatniego wierzchołka
     int getLastVertice();
     
-    int getVertices();
+    int getVertices();      // getter dla liczby wierzchołków
 
     void addEdge(int x, int y, int weight);  // dodwawanie krawędzi między wierzchołkami
 
-    void printGraphMatrix();         // wyświetlenie grafu nieskierowanego - macierz sąsiedztwa 
-    void printGraphList();
+    void printGraphMatrix();         // wyświetlenie grafu - macierz sąsiedztwa 
+    void printGraphList();           // wyświetlenie grafu - lista sąsiadów 
+
+    void toList();
 
     void readFromFile(string filename);            // wczytanie grafu z pliku
 

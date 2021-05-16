@@ -1,6 +1,6 @@
 #include <iostream>
 #include <limits>
-#include "GraphMatrix.h"
+#include "Graph.h"
 #include "PrimAlgorithm.h"
 
 // #include <conio.h>
@@ -74,7 +74,7 @@ void menu_prim(){
 	char option;
     string name;
     Graph graph(false);
-    PrimAlgorithm prim;
+    //PrimAlgorithm prim;
 	do {
         displayMenuPrim();
 		cin >> option;
@@ -95,11 +95,11 @@ void menu_prim(){
             cin >> name;
             break;
         case '3':
-            
+            graph.printGraphList();
             cin >> name;
             break;
         case '4':
-            prim.primMatrix();
+            //prim.primMatrix();
             break;
 		default:
 			cout << "Wybrano nieodpowiednia opcje.\n";
@@ -204,43 +204,43 @@ void menu_bellmanford(){
 	} while (!quit);
 }
 
-int main(int argc, char* argv[])
-{
-	bool quit = false;
-	char option;
-	do {
-        displayMainMenu();
-		cin >> option;
+// int main(int argc, char* argv[])
+// {
+// 	bool quit = false;
+// 	char option;
+// 	do {
+//         displayMainMenu();
+// 		cin >> option;
 
-		cout << endl;
-		switch (option) {
-		case '0':
-			quit = true;
-		 	break;
-		case '1':
-			menu_prim();
-			break;
+// 		cout << endl;
+// 		switch (option) {
+// 		case '0':
+// 			quit = true;
+// 		 	break;
+// 		case '1':
+// 			menu_prim();
+// 			break;
 
-		case '2':
-			menu_kruskal();
-			break;
+// 		case '2':
+// 			menu_kruskal();
+// 			break;
 
-		case '3':
-			menu_dijkstra();
-			break;
-		case '4':
-            menu_bellmanford();
-            break;
-		default:
-			cout << "Wybrano nieodpowiednia opcje.\n";
+// 		case '3':
+// 			menu_dijkstra();
+// 			break;
+// 		case '4':
+//             menu_bellmanford();
+//             break;
+// 		default:
+// 			cout << "Wybrano nieodpowiednia opcje.\n";
 
-		}
+// 		}
 
-	} while (!quit);
+// 	} while (!quit);
 
-	return 0;
+// 	return 0;
 
-}
+// }
 
 
 

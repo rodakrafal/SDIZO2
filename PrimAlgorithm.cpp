@@ -1,5 +1,5 @@
 #include "PrimAlgorithm.h"
-#include "GraphMatrix.h"
+#include "Graph.h"
 #include <queue>
 #include <vector>
 #include <limits>
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-GraphMatrix graph(false);
+Graph graph(false);
 typedef pair<int, int> pi;
 
 PrimAlgorithm::PrimAlgorithm(int x, int y){
@@ -50,10 +50,13 @@ void PrimAlgorithm::prim(MST MST_Array []) {
     weight += top.first;
     MST_Array[current].near = temp;
     cout << endl << "Przejście z " << temp << " do "<< current << " z wagą " << top.first<< endl;
+    cout << "Przejście z " << temp << " do "<< current << " z wagą---" << graph.getTableValue(current, temp) << endl;
+
     pq.pop();
     int count = amountVertices-2;
+    temp = current;
     while(count){
-        temp = current;
+        
         for (int x = 0; x < amountVertices; x++){
             if(numeric_limits<int>::max() != graph.getTableValue(current, x) && !MST_Array[x].visited){
                 pq.push(make_pair(graph.getTableValue(current, x), x));
@@ -68,7 +71,9 @@ void PrimAlgorithm::prim(MST MST_Array []) {
         weight += top.first;
         MST_Array[current].near = temp;
         cout << endl << "Przejście z " << temp << " do "<< current << " z wagą " << top.first<< endl;
+        cout << "Przejście z " << temp << " do "<< current << " z wagą---" << graph.getTableValue(current, temp) << endl;
         pq.pop();
+        temp = current;
         }
         count--;
     }
@@ -82,11 +87,12 @@ void PrimAlgorithm::primMatrix(){
     prim(tab);
 }
 
-// int main(int argc, char const *argv[])
-// {
-//     graph.generateGraph(0.7,5);
-//     graph.printGraphMatrix();
-//     PrimAlgorithm primMat (graph.getVertices(), graph.getFirstVertice());
-//     primMat.primMatrix();
+int main(int argc, char const *argv[])
+{
+    graph.generateGraph(0.7,5);
+    graph.printGraphMatrix();
+    graph.printGraphList();
+    PrimAlgorithm primMat (graph.getVertices(), graph.getFirstVertice());
+    primMat.primMatrix();
 
-// }
+}

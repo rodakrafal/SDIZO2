@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
+
 #include <fstream>
 
 using namespace std;
@@ -27,29 +28,37 @@ Graph::~Graph(){ // destruktor
 
 void Graph::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej połączenia między wierzchołkami 
     if(V <= 1){
-        cout << "Podano za małą ilość krawędzi do stworzenia tablicy dwuwymiarowej."<<endl;
+        cout << "Podano za małą ilość krawędzi do stworzenia tablicy."<<endl;
         return;
     }
-    table = new int * [V];
+
+    tableList = new vector<pair<int,int>> [V];
+    tableMatrix = new int * [V];
     for (int i = 0; i <V; ++i){
-        table[i] = new int [V];
+        tableMatrix[i] = new int [V];
     }
     for (int i = 0; i<V; i++){
         for (int j =0; j<V;j++){
-            table[i][j] = numeric_limits<int>::max();       // tablica początkowo wypełniana jest nieskończonością - nawjwiększą wartością dla tego typu
+            tableMatrix[i][j] = numeric_limits<int>::max();       // tablica początkowo wypełniana jest nieskończonością - nawjwiększą wartością dla tego typu
         }
     }
 }
 
 int Graph::getTableValue(int x, int y){ //getter dla tablicy dwuwymiarowej
-    return table[x][y];
+    return tableMatrix[x][y];
+}
+
+int Graph::getListValue(int x, int y){ //getter dla tablicy dwuwymiarowej
+    // tableList[x].begin();
+    return tableList[x].at(y).second;
 }
 
 void Graph::destruct(){ // "wnętrze" destruktora
     for (int i = 0; i<vertices; i++){
-       delete [] table [i];
+       delete [] tableMatrix [i];
     }
-    delete [] table;
+    delete [] tableMatrix;
+    delete [] tableList;
 }
 
 void Graph::setFirstVertice(int x){ //ustawianie wartości "pierwszego" wierzchołka
@@ -73,10 +82,12 @@ int Graph::getVertices(){ // getter dla ilości wierzchołków
 }
 
 void Graph::addEdge(int x, int y, int weight){   // dodawanie połączeń między wierzchołkami
-    table[x][y] = weight;   // dla grafu skierowanego
+    tableMatrix[x][y] = weight;   // dla grafu skierowanego
+    tableList[x].push_back(make_pair(y, weight));
     // table[y][x] = weight;
     if(!isDirected){    //dla grafu nieskierowanego
-        table[y][x] = weight;
+        tableMatrix[y][x] = weight;
+        tableList[y].push_back(make_pair(x, weight));
     }
 }
 
@@ -85,6 +96,8 @@ void Graph::printGraphMatrix(){ // funckja wyświetlająca graficzną reprezenta
         cout<<"Nie odpowiednia ilosć wierzchołków." << endl;
         return;
     }
+
+    cout << "   \tMacierz Sąsiedztwa" <<endl;
     cout << "  ";
     for (int i = 0; i<vertices; i++){
         cout << i <<"\t";
@@ -93,18 +106,35 @@ void Graph::printGraphMatrix(){ // funckja wyświetlająca graficzną reprezenta
     for (int i = 0; i<vertices;i++){
         cout << i << " ";
         for (int j = 0; j<vertices; j++){
-            if(table[i][j] == numeric_limits<int>::max()){   // dla wartości największej - reprezentującej nieskończoność wypisywana jest "--" dla przejrzystości 
+            if(tableMatrix[i][j] == numeric_limits<int>::max()){   // dla wartości największej - reprezentującej nieskończoność wypisywana jest "--" dla przejrzystości 
                 if(i == j) cout << "--\t";
                 else cout << " " << "\t";
             }else {
-                cout << table[i][j] << "\t";
+                cout << tableMatrix[i][j] << "\t";
             }
         }
         cout << endl;
     }
+    cout <<endl <<endl;
 }
 
 void Graph::printGraphList(){
+    if(vertices <= 1){
+        cout<<"Nie odpowiednia ilosć wierzchołków." << endl;
+        return;
+    }
+    cout << "\t\tLista Sąsiedztwa" <<endl;
+    for(int i = 0; i<vertices;i++){
+        cout << "."<< i;
+        for(int j = 0; j<tableList[i].size();j++){
+            cout << " -> " << tableList[i].at(j).first << " [waga - " << tableList[i].at(j).second << "]";
+        }
+        cout << endl;
+    }
+    cout <<endl <<endl;
+}
+
+void Graph::toList(){
 
 }
 
@@ -221,7 +251,7 @@ void Graph::generateGraph(float density, int amountOfVertices){
         if(i+1==vertices){
             break;
         } 
-        addEdge(tab[i+1], tab[i], rand()%vertices);
+        addEdge(tab[i+1], tab[i], rand()%13);
         tabEdge[tab[i+1]][tab[i]] = true; // ustawiamy połaczenia na true, w celu "poinfomowania" że krawędź została juz wykorzystana/połaczona
         
         if(!isDirected){ // w przypadku grafu nieskierowanego
@@ -240,7 +270,7 @@ void Graph::generateGraph(float density, int amountOfVertices){
                 first = rand()%vertices;
                 second = rand()%vertices;
             }while(isDirected ? tabEdge[first][second] : (tabEdge[first][second] || tabEdge[second][first]));
-            addEdge(first,second,rand()%vertices);
+            addEdge(first,second,rand()%13);
             tabEdge[first][second] = true;
             if(!isDirected){
                 tabEdge[second][first] = true;

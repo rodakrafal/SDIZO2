@@ -127,7 +127,7 @@ void Graph::printGraphList(){
     for(int i = 0; i<vertices;i++){
         cout << "."<< i;
         for(int j = 0; j<tableList[i].size();j++){
-            cout << " -> " << tableList[i].at(j).first << " [waga - " << tableList[i].at(j).second << "]";
+            cout << " -> " << tableList[i].at(j).first << " [waga: " << tableList[i].at(j).second << "]";
         }
         cout << endl;
     }

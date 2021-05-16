@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "Graph.h"
 using namespace std;
 
 
@@ -22,6 +22,7 @@ class PrimAlgorithm
     void initilize(MST MSTarr []);
     void prim(MST MSTarr []);
 
-    void primMatrix();
-    void primList();
+    void primAlg(bool x, Graph graph);
+    void primMatrix(Graph graph);
+    void primList(Graph graph);
 };

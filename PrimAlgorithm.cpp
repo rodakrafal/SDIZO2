@@ -1,5 +1,4 @@
 #include "PrimAlgorithm.h"
-#include "Graph.h"
 #include <queue>
 #include <vector>
 #include <limits>
@@ -7,7 +6,6 @@
 
 using namespace std;
 
-Graph graph(false);
 typedef pair<int, int> pi;
 
 PrimAlgorithm::PrimAlgorithm(int x, int y){
@@ -16,20 +14,26 @@ PrimAlgorithm::PrimAlgorithm(int x, int y){
 
 }
 
+PrimAlgorithm::PrimAlgorithm(){
+
+}
+
 PrimAlgorithm::~PrimAlgorithm(){
 
 }
 
-void PrimAlgorithm::initilize(MST MST_Array []) {
-        for (int i = 0; i < amountVertices; i++) {
+
+void PrimAlgorithm::primMatrix(Graph graph) {
+    
+    if(graph.getVertices() <=1){
+        return;
+    }
+    MST MST_Array [graph.getVertices()];
+    for (int i = 0; i < amountVertices; i++) {
         MST_Array[i].visited = false; // wierzchołki odwiedzone
         MST_Array[i].key = numeric_limits<int>::max();  // "waga" drogi
         // MST_Array[i].near = i; // wierzchołki połaczone
     }
-}
-
-void PrimAlgorithm::prim(MST MST_Array []) {
-    
     priority_queue<pi, vector<pi>, greater<pi> > pq;
     pair<int, int> top;
     int weight = 0;
@@ -81,18 +85,31 @@ void PrimAlgorithm::prim(MST MST_Array []) {
 
 }
 
-void PrimAlgorithm::primMatrix(){
-    MST tab [graph.getVertices()];
-    initilize(tab);
-    prim(tab);
+void PrimAlgorithm::primList(Graph graph){
+    
 }
 
-int main(int argc, char const *argv[])
-{
-    graph.generateGraph(0.7,5);
-    graph.printGraphMatrix();
-    graph.printGraphList();
-    PrimAlgorithm primMat (graph.getVertices(), graph.getFirstVertice());
-    primMat.primMatrix();
 
+void PrimAlgorithm::primAlg(bool x, Graph graph){
+
+    if(graph.getVertices() <=1){
+        return;
+    }
+    if(x){
+        primMatrix(&graph);
+    }else {
+        primList(&graph);
+    }
 }
+
+// int main(int argc, char const *argv[])
+// {
+
+
+//     graph.generateGraph(0.7,5);
+//     graph.printGraphMatrix();
+//     graph.printGraphList();
+//     PrimAlgorithm primMat (graph.getVertices(), graph.getFirstVertice());
+//     primMat.primMatrix();
+
+// }

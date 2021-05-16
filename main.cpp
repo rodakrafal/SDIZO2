@@ -1,7 +1,8 @@
 #include <iostream>
 #include <limits>
-#include "Graph.h"
 #include "PrimAlgorithm.h"
+// #include "Graph.h"
+
 
 // #include <conio.h>
 using namespace std;
@@ -65,16 +66,16 @@ void displayMainMenu(){
     cout << "Podaj opcje: ";
 }
 
-void displayMainGettingValues(){
+void displayInfo(string info){
     // system("clear");
-    cout << "\nPodaj nazwę pliku: ";
+    cout << endl<< info;
 }
 void menu_prim(){
 	bool quit = false;
 	char option;
     string name;
-    Graph graph(false);
-    //PrimAlgorithm prim;
+    Graph graph (false);
+    PrimAlgorithm prim;
 	do {
         displayMenuPrim();
 		cin >> option;
@@ -85,7 +86,7 @@ void menu_prim(){
 			quit = true;
 		 	break;
 		case '1':
-			displayMainGettingValues();
+			displayInfo("Prosze podać nazwę pliku: ");
             cin >> name;
             graph.readFromFile(name);
             cin >> name;
@@ -99,7 +100,13 @@ void menu_prim(){
             cin >> name;
             break;
         case '4':
-            //prim.primMatrix();
+			if(graph.getVertices() <=1){
+				displayInfo("Graf nie został utworzony.");
+			}
+			graph.printGraphMatrix();
+			prim.primMatrix(&graph);
+			graph.printGraphList();
+			cin >> name;
             break;
 		default:
 			cout << "Wybrano nieodpowiednia opcje.\n";
@@ -204,43 +211,43 @@ void menu_bellmanford(){
 	} while (!quit);
 }
 
-// int main(int argc, char* argv[])
-// {
-// 	bool quit = false;
-// 	char option;
-// 	do {
-//         displayMainMenu();
-// 		cin >> option;
+int main(int argc, char* argv[])
+{
+	bool quit = false;
+	char option;
+	do {
+        displayMainMenu();
+		cin >> option;
 
-// 		cout << endl;
-// 		switch (option) {
-// 		case '0':
-// 			quit = true;
-// 		 	break;
-// 		case '1':
-// 			menu_prim();
-// 			break;
+		cout << endl;
+		switch (option) {
+		case '0':
+			quit = true;
+		 	break;
+		case '1':
+			menu_prim();
+			break;
 
-// 		case '2':
-// 			menu_kruskal();
-// 			break;
+		case '2':
+			menu_kruskal();
+			break;
 
-// 		case '3':
-// 			menu_dijkstra();
-// 			break;
-// 		case '4':
-//             menu_bellmanford();
-//             break;
-// 		default:
-// 			cout << "Wybrano nieodpowiednia opcje.\n";
+		case '3':
+			menu_dijkstra();
+			break;
+		case '4':
+            menu_bellmanford();
+            break;
+		default:
+			cout << "Wybrano nieodpowiednia opcje.\n";
 
-// 		}
+		}
 
-// 	} while (!quit);
+	} while (!quit);
 
-// 	return 0;
+	return 0;
 
-// }
+}
 
 
 

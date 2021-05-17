@@ -82,12 +82,10 @@ int Graph::getVertices(){ // getter dla ilości wierzchołków
 }
 
 void Graph::addEdge(int x, int y, int weight){   // dodawanie połączeń między wierzchołkami
+    
     tableMatrix[x][y] = weight;   // dla grafu skierowanego
-    tableList[x].push_back(make_pair(y, weight));
-    // table[y][x] = weight;
     if(!isDirected){    //dla grafu nieskierowanego
         tableMatrix[y][x] = weight;
-        tableList[y].push_back(make_pair(x, weight));
     }
 }
 
@@ -123,6 +121,7 @@ void Graph::printGraphList(){
         cout<<"Nie odpowiednia ilosć wierzchołków." << endl;
         return;
     }
+    toList();
     cout << "\t\tLista Sąsiedztwa" <<endl;
     for(int i = 0; i<vertices;i++){
         cout << "."<< i;
@@ -135,7 +134,14 @@ void Graph::printGraphList(){
 }
 
 void Graph::toList(){
-
+    for (int i = 0; i<vertices;i++){
+        for (int j = 0; j<vertices;j++)
+        {
+            if(tableMatrix[i][j]!=numeric_limits<int>::max()){
+                tableList[i].push_back(make_pair(j, tableMatrix[i][j]));
+            }
+        }
+    }
 }
 
 void Graph::readFromFile(string filename){ // wczytywanie grafu z pliku

@@ -15,7 +15,7 @@ void displayMenuPrim()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
-	cout << "\t   0. Powrot do menu" << endl;
+	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
 
@@ -27,7 +27,7 @@ void displayMenuKruskal()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
-	cout << "\t   0. Powrot do menu" << endl;
+	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
 
@@ -39,7 +39,7 @@ void displayMenuDijkstra()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
-	cout << "\t   0. Powrot do menu" << endl;
+	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
 
@@ -51,7 +51,7 @@ void displayMenuBELLMANFORD()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
-	cout << "\t   0. Powrot do menu" << endl;
+	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
 
@@ -102,12 +102,20 @@ void menu_prim(){
         case '4':
 			if(graph.getVertices() <=1){
 				displayInfo("Graf nie został utworzony.");
+				break;
 			}
 			graph.printGraphMatrix();
-			prim.primMatrix(&graph);
+			prim.primMatrix(graph);
+			cout << endl<<endl;
 			graph.printGraphList();
 			cin >> name;
             break;
+		case '5':
+			float x;
+			int y;
+			cin >> x >> y;
+			graph.generateGraph(x,y);
+
 		default:
 			cout << "Wybrano nieodpowiednia opcje.\n";
 

@@ -13,16 +13,15 @@ class PrimAlgorithm
 {
     private:
     int amountVertices, firstVertice;
-    
     public:
     PrimAlgorithm();
     PrimAlgorithm(int x, int y);
     ~PrimAlgorithm();
 
-    void initilize(MST MSTarr []);
-    void prim(MST MSTarr []);
+    void initilize(int x);
+    void prim(MST arr []);
 
     void primAlg(bool x, Graph graph);
-    void primMatrix(Graph graph);
-    void primList(Graph graph);
+    void primMatrix(Graph &graph);
+    void primList(Graph &graph);
 };

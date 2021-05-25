@@ -3,11 +3,11 @@
 using namespace std;
 
 
-struct MST {
-    bool visited;
-    int key;
-    int near;
-};
+// struct MST {
+//     bool visited;
+//     int key;
+//     int near;
+// };
 
 class PrimAlgorithm
 {
@@ -18,8 +18,7 @@ class PrimAlgorithm
     PrimAlgorithm(int x, int y);
     ~PrimAlgorithm();
 
-    void initilize(int x);
-    void prim(MST arr []);
+    // void prim(MST arr []);
 
     void primAlg(bool x, Graph graph);
     void primMatrix(Graph &graph);

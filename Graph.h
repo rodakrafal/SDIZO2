@@ -2,6 +2,19 @@
 #include <vector>
 using namespace std;
 
+class Edge{
+    int from, to, weight;
+};
+
+class Node{
+public:
+    int index;
+    int weight;
+    Node *next;
+    Node();
+};
+
+
 class Graph
 {
 
@@ -10,9 +23,10 @@ class Graph
     bool isDirected, created;        // czy graf jest skierowany czy nie, domyślnie nie jest
     void shuffle(int [], int n);
     void destruct();
-    int ** tableMatrix;
-    vector<pair<int,int>> *tableList;
     public:
+    int ** tableMatrix;
+    // vector<pair<int,int>> *tableList;
+    Node ** tableList;
 
     Graph();          // konstruktory
     Graph(bool x);

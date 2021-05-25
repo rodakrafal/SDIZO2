@@ -6,6 +6,7 @@
 #include <fstream>
 
 using namespace std;
+Node::Node(){}
 
 Graph::Graph(){ // konstuktor bez argumentowy
     this->isDirected = false;
@@ -32,7 +33,8 @@ void Graph::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej
         return;
     }
 
-    tableList = new vector<pair<int,int>> [V];
+    // tableList = new vector<pair<int,int>> [V];
+    tableList = new Node * [V];
     tableMatrix = new int * [V];
     for (int i = 0; i <V; ++i){
         tableMatrix[i] = new int [V];
@@ -50,7 +52,9 @@ int Graph::getTableValue(int x, int y){ //getter dla tablicy dwuwymiarowej
 
 int Graph::getListValue(int x, int y){ //getter dla tablicy dwuwymiarowej
     // tableList[x].begin();
-    return tableList[x].at(y).second;
+    // return tableList[x].at(y).second;
+    // return tableList[i];
+
 }
 
 void Graph::destruct(){ // "wnętrze" destruktora
@@ -123,10 +127,11 @@ void Graph::printGraphList(){
     }
     toList();
     cout << "\t\tLista Sąsiedztwa" <<endl;
+    Node *x;
     for(int i = 0; i<vertices;i++){
         cout << "."<< i;
-        for(int j = 0; j<tableList[i].size();j++){
-            cout << " -> " << tableList[i].at(j).first << " [waga: " << tableList[i].at(j).second << "]";
+        for(x = tableList[i]; x; x = x->next){
+            cout << " -> " << x->index << " [waga: " << x->weight << "]";
         }
         cout << endl;
     }
@@ -134,11 +139,16 @@ void Graph::printGraphList(){
 }
 
 void Graph::toList(){
+    Node * node;
     for (int i = 0; i<vertices;i++){
         for (int j = 0; j<vertices;j++)
         {
             if(tableMatrix[i][j]!=numeric_limits<int>::max()){
-                tableList[i].push_back(make_pair(j, tableMatrix[i][j]));
+                node = new Node();
+                node->index = i;
+                node->weight = tableMatrix[i][j];
+                node->next = tableList[i];
+                tableList[i] = node;
             }
         }
     }

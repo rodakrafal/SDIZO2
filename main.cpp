@@ -9,19 +9,20 @@ using namespace std;
 
 void displayMenuPrim()
 {
-    system("clear");
+    // system("clear");
     cout << "================= ALGORYTM PRIMA =================" << endl;
 	cout << "\t   1. Wczytaj z pliku" << endl;
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
+    cout << "\t   5. Generowanie grafu" << endl;
 	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
 
 void displayMenuKruskal()
 {
-    system("clear");
+    // system("clear");
     cout << "================= ALGORYTM KRUSKALA =================" << endl;
 	cout << "\t   1. Wczytaj z pliku" << endl;
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
@@ -33,7 +34,7 @@ void displayMenuKruskal()
 
 void displayMenuDijkstra()
 {
-    system("clear");
+    // system("clear");
     cout << "================= ALGORYTM DIJKSTRY =================" << endl;
 	cout << "\t   1. Wczytaj z pliku" << endl;
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
@@ -45,7 +46,7 @@ void displayMenuDijkstra()
 
 void displayMenuBELLMANFORD()
 {
-    system("clear");
+    // system("clear");
     cout << "=============== ALGORYTM BELLMANA-FORDA ===============" << endl;
 	cout << "\t   1. Wczytaj z pliku" << endl;
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
@@ -56,7 +57,7 @@ void displayMenuBELLMANFORD()
 }
 
 void displayMainMenu(){
-    system("clear");
+    // system("clear");
     cout << "================== MENU GLOWNE ==================" << endl;
     cout << "\t   1. Algorytm Prima" << endl;
     cout << "\t   2. Algorytm Kruskala" << endl;
@@ -108,12 +109,17 @@ void menu_prim(){
 			prim.primMatrix(graph);
 			cout << endl<<endl;
 			graph.printGraphList();
+			prim.primList(graph);
+			cout << endl<<endl;
 			cin >> name;
             break;
 		case '5':
 			float x;
 			int y;
-			cin >> x >> y;
+			displayInfo("Prosze podac gęstość od 0.00 do 1.00: ");
+			cin >> x;
+			displayInfo("Prosze podać ilość wierzchołków: ");
+			cin >> y;
 			graph.generateGraph(x,y);
 
 		default:

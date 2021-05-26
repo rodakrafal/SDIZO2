@@ -31,48 +31,43 @@ void PrimAlgorithm::primMatrix(Graph &graph) {
     amountVertices = graph.getVertices();
     int weight = 0;
     bool * MST_Array = new bool [amountVertices];
-    // MST MST_Array [amountVertices];
-    // for (int i = 0; i < amountVertices; i++) {
-    //     MST_Array[i].visited = false; // wierzchołki odwiedzone
-    //     MST_Array[i].key = numeric_limits<int>::max();  // "waga" drogi
-    //     MST_Array[i].near = numeric_limits<int>::max();  // wierzchołki połaczone
-    // }
+    for (int i = 0; i<amountVertices;i++){
+        MST_Array[i]=false;
+    }
+    MST_Array[firstVertice]= true;
 
-
-    typedef pair<pair<int, int>, int> pi;
-    priority_queue<pi, vector<pi>, greater<pi> > pq;
-    pair<pair<int, int>, int> top;
+    priority_queue<Edge, vector<Edge>, Compare> Q;
     int temp = firstVertice;
     int current = firstVertice;
-    MST_Array[firstVertice]= true;
 
     int count = amountVertices-1;
     temp = current;
     for(int i = 0; i<count;i++){
+        Edge edge;
         for (int x = 0; x < amountVertices; x++){
             if(numeric_limits<int>::max() != graph.getTableValue(current, x) && !MST_Array[x]){
-                pq.push(make_pair(make_pair(graph.getTableValue(current, x), x),current));
+                edge.from = current;
+                edge.to = x;
+                edge.weight = graph.getTableValue(current, x);
+                Q.push(edge);
             }
         }
-
-        top = pq.top();
-        // MST_Array[top.second].near = temp;
-        temp = top.second;
-        current = top.first.second;
         MST_Array[current] = true;
-        // MST_Array[current].key = top.first.first;
-        weight +=  top.first.first;
-        // MST_Array[current].near = temp;
-        cout << endl << "Przejście z " << temp << " do "<< current << " z wagą " << top.first.first<< endl;
-        cout << "Przejście z " << temp << " do "<< current << " z wagą---" << graph.getTableValue(current, temp) << endl;
-        pq.pop();
+        edge = Q.top();
+                
+        temp = edge.from;
+        current = edge.to;
+        weight +=  edge.weight;
+        cout << endl << "(" << temp << ", "<< current << ")   " << edge.weight<< endl;
+        Q.pop();
     }
-    cout << "\nCałkowita waga MST to: " << weight << endl;
+    cout << "\nMST = " << weight << endl;
+    delete [ ]MST_Array;
         
 }
 
 void PrimAlgorithm::primList(Graph &graph){
-    
+ 
     if(graph.getVertices() <=1){
         return;
     }
@@ -80,47 +75,38 @@ void PrimAlgorithm::primList(Graph &graph){
     firstVertice = graph.getFirstVertice();
     amountVertices = graph.getVertices();
     int weight = 0;
-
     bool * MST_Array = new bool [amountVertices];
-    // for (int i = 0; i < amountVertices; i++) {
-    //     MST_Array[i].visited = false; // wierzchołki odwiedzone
-    //     MST_Array[i].key = numeric_limits<int>::max();  // "waga" drogi
-    //     MST_Array[i].near = numeric_limits<int>::max();  // wierzchołki połaczone
-    // }
-    // MST_Array[firstVertice].key = 0;
-    // MST_Array[firstVertice].visited = true;
+    for (int i = 0; i<amountVertices;i++){
+        MST_Array[i]=false;
+    }
     MST_Array[firstVertice]= true;
 
-
-    typedef pair<pair<int, int>, int> pi;
-    priority_queue<pi, vector<pi>, greater<pi> > pq;
-    pair<pair<int, int>, int> top;
+    priority_queue<Edge, vector<Edge>, Compare> Q;
     int temp = firstVertice;
     int current = firstVertice;
 
     int count = amountVertices-1;
     temp = current;
-
     for(int i = 0; i<count;i++){
-        
-        // for (int x = 0; x < amountVertices; x++){
-        //     if(graph. !MST_Array[x].visited){
-        //         ;
-        //     }
-        // }
-
-        top = pq.top();
-        // MST_Array[top.second].near = temp;
-        temp = top.second;
-        current = top.first.second;
+        Edge edge;
+        Node *x;
+        for (x = graph.tableList[current]; x!=NULL; x = x->next){
+            if(!MST_Array[x->index]){
+                edge.from = current;
+                edge.to = x->index;
+                edge.weight = x->weight;
+                Q.push(edge);
+            }
+        }
         MST_Array[current] = true;
-        // MST_Array[current].key = top.first.first;
-        weight +=  top.first.first;
-        // MST_Array[current].near = temp;
-        cout << endl << "Przejście z " << temp << " do "<< current << " z wagą " << top.first.first<< endl;
-        cout << "Przejście z " << temp << " do "<< current << " z wagą---" << graph.getListValue(current, temp) << endl;
-        pq.pop();
+        edge = Q.top();
+                
+        temp = edge.from;
+        current = edge.to;
+        weight +=  edge.weight;
+        cout << endl << "(" << temp << ", "<< current << ")   " << edge.weight<< endl;
+        Q.pop();
     }
-    cout << "\nCałkowita waga MST to: " << weight << endl;
-        
+    cout << "\nMST = " << weight << endl;
+    delete [] MST_Array;
 }

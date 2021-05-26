@@ -2,8 +2,22 @@
 #include <vector>
 using namespace std;
 
+
+
 class Edge{
-    int from, to, weight;
+public:
+    int weight;
+    int from;
+    int to;
+};
+
+class Compare
+{
+public:
+    bool operator() (Edge e1, Edge e2)
+    {
+        return e1.weight > e2.weight;
+    }
 };
 
 class Node{
@@ -25,7 +39,6 @@ class Graph
     void destruct();
     public:
     int ** tableMatrix;
-    // vector<pair<int,int>> *tableList;
     Node ** tableList;
 
     Graph();          // konstruktory
@@ -58,5 +71,5 @@ class Graph
     void generateGraph(float x, int y);       // generowanie grafu 
 
 
-    
+
 };

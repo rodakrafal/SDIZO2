@@ -4,23 +4,10 @@
 using namespace std;
 
 
-struct MST {
-    bool visited;
-    int key;
-    int near;
-};
-
-struct Edges{
-    int first;
-    int second;
-    int weight;
-};
-
 class KruskalAlgorithm
 {
     private:
     int amountVertices, firstVertice;
-    MST MST_Array;
     public:
     KruskalAlgorithm();
     KruskalAlgorithm(int x, int y);
@@ -30,9 +17,6 @@ class KruskalAlgorithm
     int getAmountVertices();   // getter dla ilości krawędzi
     void setFirstVertice(int x);
     int getFirstVertice(); // getter dla pierwszego wierzchołka
-
-    void initilize(MST MSTarr []);
-    void prim(MST MSTarr []);
 
     void kruskalMatrix();
     void kruskalist();

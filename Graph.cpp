@@ -6,7 +6,11 @@
 #include <fstream>
 
 using namespace std;
-Node::Node(){}
+Node::Node(){
+    index = 0;
+    weight =0;
+    next = NULL;
+}
 
 Graph::Graph(){ // konstuktor bez argumentowy
     this->isDirected = false;
@@ -27,6 +31,22 @@ Graph::~Graph(){ // destruktor
     }
 }
 
+void Graph::destruct(){ // "wnętrze" destruktora
+    Node *x;
+    Node *toDel;
+    for (int i = 0; i<vertices; i++){
+        delete [] tableMatrix [i];
+        x = tableList[i];
+        while(x!=NULL){
+            toDel = x;
+            x = x->next;
+            delete toDel;
+        }
+    }
+    delete [] tableMatrix;
+    delete [] tableList;
+}
+
 void Graph::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej połączenia między wierzchołkami 
     if(V <= 1){
         cout << "Podano za małą ilość krawędzi do stworzenia tablicy."<<endl;
@@ -35,6 +55,9 @@ void Graph::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej
 
     // tableList = new vector<pair<int,int>> [V];
     tableList = new Node * [V];
+    for(int i =0;i<V;i++){
+        tableList[i]=NULL;
+    }
     tableMatrix = new int * [V];
     for (int i = 0; i <V; ++i){
         tableMatrix[i] = new int [V];
@@ -49,21 +72,15 @@ void Graph::createTable(int V){ // tworzenie tablicy dwu wymiarowej zawierajacej
 int Graph::getTableValue(int x, int y){ //getter dla tablicy dwuwymiarowej
     return tableMatrix[x][y];
 }
+// // DO USUNIECIA
+// int Graph::getListValue(int x, int y){ //getter dla tablicy dwuwymiarowej
+//     // return tableList[x].at(y).second;
+//     Node * w = tableList[x];
+//     return w->weight;
 
-int Graph::getListValue(int x, int y){ //getter dla tablicy dwuwymiarowej
-    // tableList[x].begin();
-    // return tableList[x].at(y).second;
-    // return tableList[i];
+// }
 
-}
 
-void Graph::destruct(){ // "wnętrze" destruktora
-    for (int i = 0; i<vertices; i++){
-       delete [] tableMatrix [i];
-    }
-    delete [] tableMatrix;
-    delete [] tableList;
-}
 
 void Graph::setFirstVertice(int x){ //ustawianie wartości "pierwszego" wierzchołka
     this->first_vertice =x;
@@ -125,12 +142,12 @@ void Graph::printGraphList(){
         cout<<"Nie odpowiednia ilosć wierzchołków." << endl;
         return;
     }
-    toList();
+    // toList();
     cout << "\t\tLista Sąsiedztwa" <<endl;
     Node *x;
     for(int i = 0; i<vertices;i++){
         cout << "."<< i;
-        for(x = tableList[i]; x; x = x->next){
+        for(x = tableList[i]; x!=NULL; x = x->next){
             cout << " -> " << x->index << " [waga: " << x->weight << "]";
         }
         cout << endl;
@@ -145,7 +162,7 @@ void Graph::toList(){
         {
             if(tableMatrix[i][j]!=numeric_limits<int>::max()){
                 node = new Node();
-                node->index = i;
+                node->index = j;
                 node->weight = tableMatrix[i][j];
                 node->next = tableList[i];
                 tableList[i] = node;
@@ -180,7 +197,7 @@ void Graph::readFromFile(string filename){ // wczytywanie grafu z pliku
 			cout << "Podana w pliku pierwszy wierzchołek jest nieodpowiedni" << endl;
 			return;
 		}
-        cout << first_vertice << endl;
+        // cout << first_vertice << endl;
         file >> last_vertice;
         	if (last_vertice < 0) {
 			cout << "Podana w pliku ostatni wierzchołek jest nieodpowiedni" << endl;
@@ -209,6 +226,7 @@ void Graph::readFromFile(string filename){ // wczytywanie grafu z pliku
             }
 		}
 		file.close();
+        toList();
 	}
 	else
 		cout << "File error - OPEN" << endl;
@@ -229,7 +247,7 @@ void Graph::generateGraph(float density, int amountOfVertices){
     amountOfEdges = (density * amountOfVertices * (amountOfVertices-1))/2;
     } else amountOfEdges = (density * amountOfVertices * (amountOfVertices-1));
     bool isBool = true;
-    int first, second, amount;
+    int first, second;
     // sprawdzenie czy jest minimalna liczba połaczeń miedzy wierzchołkami
     if(amountOfEdges<amountOfVertices-1){
         amountOfEdges = amountOfVertices-1;
@@ -298,6 +316,7 @@ void Graph::generateGraph(float density, int amountOfVertices){
        delete [] tabEdge [i];
     }
     delete [] tabEdge;
+    toList();
 }
 
 void Graph::shuffle (int arr[], int lenght){ // funckja służąca do losowego ustawienia wartości w tablicy

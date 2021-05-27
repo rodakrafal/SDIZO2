@@ -1,8 +1,7 @@
-#include <iostream>
+#ifndef GRAPH_H
+#define GRAPH_H
+#include <string>
 #include <vector>
-using namespace std;
-
-
 
 class Edge{
 public:
@@ -66,10 +65,11 @@ class Graph
 
     void toList();
 
-    void readFromFile(string filename);            // wczytanie grafu z pliku
+    void readFromFile(std::string filename);            // wczytanie grafu z pliku
 
     void generateGraph(float x, int y);       // generowanie grafu 
 
 
 
 };
+#endif

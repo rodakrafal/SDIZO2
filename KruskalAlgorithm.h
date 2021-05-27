@@ -1,23 +1,44 @@
-#include <iostream>
 #include "Graph.h"
 
-using namespace std;
+class DSNode{
+    public:
+    int parent, rank;
+    DSNode();
+    ~DSNode();
+    void MakeSet ( int v );
+    int FindSet ( int v );
+    void UnionSets ( Edge e );
+};
+
+class DSStruct
+{
+    private:
+    public:
+    DSStruct ( int n );
+    ~DSStruct( );
+};
+
+struct TNode
+{
+  TNode * next;
+  int v, weight;
+};
 
 
 class KruskalAlgorithm
 {
     private:
-    int amountVertices, firstVertice;
+    int amountVertices;
+    int amoutOfEdges;
     public:
-    KruskalAlgorithm();
-    KruskalAlgorithm(int x, int y);
-    ~KruskalAlgorithm();
-    
-    void setAmountVertices(int x); // setter dla ilości krawędzi
-    int getAmountVertices();   // getter dla ilości krawędzi
-    void setFirstVertice(int x);
-    int getFirstVertice(); // getter dla pierwszego wierzchołka
+    vector<DSNode> ds;
 
-    void kruskalMatrix();
-    void kruskalist();
+    KruskalAlgorithm();
+    ~KruskalAlgorithm();
+
+    int find(int v);
+    void union_op(int x,int y);
+
+    void kruskalMatrix(Graph &graph);
+    void kruskalList(Graph &graph);
 };

@@ -1,17 +1,10 @@
 #include "PrimAlgorithm.h"
+#include <iostream>
 #include <queue>
 #include <vector>
 #include <limits>
 
-
 using namespace std;
-
-
-PrimAlgorithm::PrimAlgorithm(int x, int y){
-    this->amountVertices = x;
-    this->firstVertice = y;
-
-}
 
 PrimAlgorithm::PrimAlgorithm(){
 

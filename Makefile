@@ -7,10 +7,10 @@ run:
 
 valgrind:
 	clear
-	g++ -g -o main main.cpp Graph.cpp PrimAlgorithm.cpp KruskalAlgorithm.cpp -Wall
+	g++ -ggdb -o main main.cpp Graph.cpp PrimAlgorithm.cpp KruskalAlgorithm.cpp -Wall
 	valgrind --track-origins=yes ./main
 
 valgrindleak:
 	clear
-	g++ -g -o main main.cpp Graph.cpp PrimAlgorithm.cpp KruskalAlgorithm.cpp -Wall
+	g++ -ggdb -o main main.cpp Graph.cpp PrimAlgorithm.cpp KruskalAlgorithm.cpp -Wall
 	valgrind --leak-check=full ./main

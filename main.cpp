@@ -1,7 +1,9 @@
 #include <iostream>
 #include <limits>
+#include "Graph.h"
+
 #include "PrimAlgorithm.h"
-// #include "Graph.h"
+#include "KruskalAlgorithm.h"
 
 
 // #include <conio.h>
@@ -28,6 +30,7 @@ void displayMenuKruskal()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
+    cout << "\t   5. Generowanie grafu" << endl;
 	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
@@ -132,6 +135,9 @@ void menu_prim(){
 
 void menu_kruskal(){
 	bool quit = false;
+	KruskalAlgorithm krusk;
+    string name;
+    Graph graph (false);
 	char option;
 	do {
         displayMenuKruskal();
@@ -143,17 +149,41 @@ void menu_kruskal(){
 			quit = true;
 		 	break;
 		case '1':
-			
+			displayInfo("Prosze podać nazwę pliku: ");
+            cin >> name;
+            graph.readFromFile(name);
+            cin >> name;
 			break;
         case '2':
-        
+            graph.printGraphMatrix();
+            cin >> name;
             break;
         case '3':
-    
+            graph.printGraphList();
+            cin >> name;
             break;
         case '4':
-        
+			if(graph.getVertices() <=1){
+				displayInfo("Graf nie został utworzony.");
+				break;
+			}
+			graph.printGraphMatrix();
+			krusk.kruskalMatrix(graph);
+			cout << endl<<endl;
+			graph.printGraphList();
+			krusk.kruskalList(graph);
+			cout << endl<<endl;
+			cin >> name;
             break;
+		case '5':
+			float x;
+			int y;
+			displayInfo("Prosze podac gęstość od 0.00 do 1.00: ");
+			cin >> x;
+			displayInfo("Prosze podać ilość wierzchołków: ");
+			cin >> y;
+			graph.generateGraph(x,y);
+			break;
 		default:
 			cout << "Wybrano nieodpowiednia opcje.\n";
 

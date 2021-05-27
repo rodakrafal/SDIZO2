@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
-
+#include <iostream>
 #include <fstream>
 
 using namespace std;

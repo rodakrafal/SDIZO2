@@ -51,7 +51,7 @@ void PrimAlgorithm::primMatrix(Graph &graph) {
         temp = edge.from;
         current = edge.to;
         weight +=  edge.weight;
-        cout << endl << "(" << temp << ", "<< current << ")   " << edge.weight<< endl;
+        cout << "(" << temp << ", "<< current << ")   " << edge.weight<< endl;
         Q.pop();
     }
     cout << "\nMST = " << weight << endl;
@@ -97,7 +97,7 @@ void PrimAlgorithm::primList(Graph &graph){
         temp = edge.from;
         current = edge.to;
         weight +=  edge.weight;
-        cout << endl << "(" << temp << ", "<< current << ")   " << edge.weight<< endl;
+        cout << "(" << temp << ", "<< current << ")   " << edge.weight<< endl;
         Q.pop();
     }
     cout << "\nMST = " << weight << endl;

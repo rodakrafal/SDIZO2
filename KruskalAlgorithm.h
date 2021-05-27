@@ -1,13 +1,11 @@
 #include "Graph.h"
-
+#include <vector>
 class DSNode{
     public:
     int parent, rank;
     DSNode();
     ~DSNode();
     void MakeSet ( int v );
-    int FindSet ( int v );
-    void UnionSets ( Edge e );
 };
 
 class DSStruct
@@ -31,7 +29,7 @@ class KruskalAlgorithm
     int amountVertices;
     int amoutOfEdges;
     public:
-    vector<DSNode> ds;
+    std::vector<DSNode> ds;
 
     KruskalAlgorithm();
     ~KruskalAlgorithm();
@@ -41,4 +39,7 @@ class KruskalAlgorithm
 
     void kruskalMatrix(Graph &graph);
     void kruskalList(Graph &graph);
+
+    int FindSet (int v);
+    void UnionSets (Edge e);
 };

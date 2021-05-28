@@ -1,33 +1,17 @@
 #include "Graph.h"
 #include <vector>
+
 class DSNode{
     public:
     int parent, rank;
     DSNode();
     ~DSNode();
-    void MakeSet ( int v );
 };
-
-class DSStruct
-{
-    private:
-    public:
-    DSStruct ( int n );
-    ~DSStruct( );
-};
-
-struct TNode
-{
-  TNode * next;
-  int v, weight;
-};
-
 
 class KruskalAlgorithm
 {
     private:
-    int amountVertices;
-    int amoutOfEdges;
+    int amountVertices, amoutOfEdges;
     public:
     std::vector<DSNode> ds;
 

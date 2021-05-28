@@ -13,4 +13,6 @@ class BellmanFordAlgorithm
 
     void BellmanFordMatrix(Graph &graph);
     void BellmanFordList(Graph &graph);
+
+    void update();
 };

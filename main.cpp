@@ -5,6 +5,7 @@
 #include "PrimAlgorithm.h"
 #include "KruskalAlgorithm.h"
 #include "DijkstraAlgorithm.h"
+#include "BellmanFordAlgorithm.h"
 
 
 // #include <conio.h>
@@ -251,6 +252,9 @@ void menu_dijkstra(){
 void menu_bellmanford(){
 	bool quit = false;
 	char option;
+    string name;
+    Graph graph (true, 0);
+	BellmanFordAlgorithm bell;
 	do {
         displayMenuBELLMANFORD();
 		cin >> option;
@@ -261,17 +265,41 @@ void menu_bellmanford(){
 			quit = true;
 		 	break;
 		case '1':
-			
+			displayInfo("Prosze podać nazwę pliku: ");
+            cin >> name;
+            graph.readFromFile(name);
+            cin >> name;
 			break;
         case '2':
-        
+            graph.printGraphMatrix();
+            cin >> name;
             break;
         case '3':
-    
+            graph.printGraphList();
+            cin >> name;
             break;
         case '4':
-        
+			if(graph.getVertices() <=1){
+				displayInfo("Graf nie został utworzony.");
+				break;
+			}
+			graph.printGraphMatrix();
+			bell.BellmanFordMatrix(graph);
+			cout << endl<<endl;
+			graph.printGraphList();
+			bell.BellmanFordList(graph);
+			cout << endl<<endl;
+			cin >> name;
             break;
+		case '5':
+			float x;
+			int y;
+			displayInfo("Prosze podac gęstość od 0.00 do 1.00: ");
+			cin >> x;
+			displayInfo("Prosze podać ilość wierzchołków: ");
+			cin >> y;
+			graph.generateGraph(x,y);
+
 		default:
 			cout << "Wybrano nieodpowiednia opcje.\n";
 

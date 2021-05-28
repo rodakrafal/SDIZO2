@@ -4,6 +4,7 @@
 
 #include "PrimAlgorithm.h"
 #include "KruskalAlgorithm.h"
+#include "DijkstraAlgorithm.h"
 
 
 // #include <conio.h>
@@ -43,6 +44,7 @@ void displayMenuDijkstra()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
+    cout << "\t   5. Generowanie grafu" << endl;
 	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
@@ -55,6 +57,7 @@ void displayMenuBELLMANFORD()
     cout << "\t   2. Wyświetl graf macierzowo" << endl;
     cout << "\t   3. Wyświetl graf listowo" << endl;
     cout << "\t   4. Wykonaj algorytm" << endl;
+    cout << "\t   5. Generowanie grafu" << endl;
 	cout << "\t   0. Powrot do menu" << endl<<endl;
 	cout << "Podaj opcje: ";
 }
@@ -78,7 +81,7 @@ void menu_prim(){
 	bool quit = false;
 	char option;
     string name;
-    Graph graph (false);
+    Graph graph (false, 0);
     PrimAlgorithm prim;
 	do {
         displayMenuPrim();
@@ -137,7 +140,7 @@ void menu_kruskal(){
 	bool quit = false;
 	KruskalAlgorithm krusk;
     string name;
-    Graph graph (false);
+    Graph graph (false, 0);
 	char option;
 	do {
         displayMenuKruskal();
@@ -195,6 +198,9 @@ void menu_kruskal(){
 void menu_dijkstra(){
 	bool quit = false;
 	char option;
+    string name;
+	Graph graph (true, 1);
+	DijkstraAlgorithm dijkst;
 	do {
         displayMenuDijkstra();
 		cin >> option;
@@ -205,16 +211,35 @@ void menu_dijkstra(){
 			quit = true;
 		 	break;
 		case '1':
-			
+			displayInfo("Prosze podać nazwę pliku: ");
+            cin >> name;
+            graph.readFromFile(name);
+            cin >> name;
 			break;
         case '2':
-        
+            graph.printGraphMatrix();
+            cin >> name;
             break;
         case '3':
-    
+            graph.printGraphList();
+            cin >> name;
             break;
         case '4':
-        
+			if(graph.getVertices() <=1){
+				displayInfo("Graf nie został utworzony.");
+				break;
+			}
+			if(graph.checkIfNegativ()){
+				cout << "Wagi w algorytmie Djiskstry nie mogą być ujemne.\n";
+				break;
+			}
+			graph.printGraphMatrix();
+			dijkst.DijkstraMatrix(graph);
+			cout << endl<<endl;
+			graph.printGraphList();
+			dijkst.DijkstraList(graph);
+			cout << endl<<endl;
+			cin >> name;
             break;
 		default:
 			cout << "Wybrano nieodpowiednia opcje.\n";

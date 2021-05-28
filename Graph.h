@@ -19,6 +19,15 @@ public:
     }
 };
 
+class Compare2
+{
+public:
+    bool operator() (Edge e1, Edge e2)
+    {
+        return e1.weight < e2.weight;
+    }
+};
+
 class Node{
 public:
     int index;
@@ -33,22 +42,21 @@ class Graph
 
     private:
     int edges, vertices, first_vertice, last_vertice;      // wierzchołki, krawędzie, pierwszy/ostatni wierzchołek
-    bool isDirected, created;        // czy graf jest skierowany czy nie, domyślnie nie jest
+    bool isDirected, created, wrong;        // czy graf jest skierowany czy nie, domyślnie nie jest
+    int which; // wartosc 1 - algorytm djikstry, 2 - bellmana-forda
     void shuffle(int [], int n);
     void destruct();
     public:
     int ** tableMatrix;
     Node ** tableList;
 
-    Graph();          // konstruktory
-    Graph(bool x);
+    Graph(bool x, int y);
     ~Graph();     // destruktory
 
     void createTable (int x);  // tworzenie tabeli 2D zawierającej (reprezentującej) graf nieskierowany - macierz sąsiedztwa
 
     int getTableValue(int x, int y);
     int getListValue(int x, int y);
-
 
     void setFirstVertice(int x);  // setter oraz getter dla pierwszego wierzchołka
     int getFirstVertice();
@@ -57,6 +65,10 @@ class Graph
     int getLastVertice();
     
     int getVertices();      // getter dla liczby wierzchołków
+
+    int getEdges();      // getter dla liczby krawędzi
+
+    bool checkIfNegativ();  // getter sprawdzenia wartości ujemnych
 
     void addEdge(int x, int y, int weight);  // dodwawanie krawędzi między wierzchołkami
 

@@ -16,12 +16,12 @@ PrimAlgorithm::~PrimAlgorithm(){
 
 void PrimAlgorithm::primMatrix(Graph &graph) {
 
-    if(graph.getVertices() <=1){
+    amountVertices = graph.getVertices();
+    if(amountVertices <=1){
         return;
     }
 
     firstVertice = graph.getFirstVertice();
-    amountVertices = graph.getVertices();
     int weight = 0;
     bool * MST_Array = new bool [amountVertices];
     for (int i = 0; i<amountVertices;i++){
@@ -61,12 +61,12 @@ void PrimAlgorithm::primMatrix(Graph &graph) {
 
 void PrimAlgorithm::primList(Graph &graph){
  
-    if(graph.getVertices() <=1){
+    amountVertices = graph.getVertices();
+    if(amountVertices <=1){
         return;
     }
 
     firstVertice = graph.getFirstVertice();
-    amountVertices = graph.getVertices();
     int weight = 0;
     bool * MST_Array = new bool [amountVertices];
     for (int i = 0; i<amountVertices;i++){

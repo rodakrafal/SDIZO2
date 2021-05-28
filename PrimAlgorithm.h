@@ -1,8 +1,5 @@
 #include "Graph.h"
 
-using namespace std;
-
-
 class PrimAlgorithm
 {
     private:

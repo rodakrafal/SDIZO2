@@ -12,18 +12,15 @@ Node::Node(){
     next = NULL;
 }
 
-Graph::Graph(){ // konstuktor bez argumentowy
-    this->isDirected = false;
-    this->vertices = 0;
-    this->created = true;
-}
-
-Graph::Graph(bool x){ // konstuktor z argumentem decydującym czy graf jest skierowany czy nie
+Graph::Graph(bool x, int y){ // konstuktor z argumentem decydującym czy graf jest skierowany czy nie
     this->isDirected = x;
     this->vertices = 0;
     this->created = true;
     this->edges = 0;
+    this->which = y;
+    this->wrong = false;
 }
+
 
 Graph::~Graph(){ // destruktor
     if(vertices>=1){
@@ -101,6 +98,15 @@ int Graph::getLastVertice(){ // getter dla "ostatniego" wierzchołka
 int Graph::getVertices(){ // getter dla ilości wierzchołków
     return vertices;
 }
+
+int Graph::getEdges(){ // getter dla ilości krawędzi
+    return edges;
+}
+
+bool Graph::checkIfNegativ(){ // getter dla ilości krawędzi
+    return wrong;
+}
+
 
 void Graph::addEdge(int x, int y, int weight){   // dodawanie połączeń między wierzchołkami
     
@@ -218,9 +224,12 @@ void Graph::readFromFile(string filename){ // wczytywanie grafu z pliku
                 file >> last;
                  if(last >= vertices){
                     cout << "Błędna wartość drugiego wierzchołka" << endl;
-                    break;
+                    return;
                 }
                 file >>w;
+                if(w<0){
+                    wrong = true;
+                }
                 addEdge(first,last,w);
                 // cout << first << " " << last << " " << w  << endl;
             }
